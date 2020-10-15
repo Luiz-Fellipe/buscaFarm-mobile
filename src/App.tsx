@@ -1,11 +1,23 @@
+import 'react-native-gesture-handler';
 import React from 'react';
-import { View, Text } from 'react-native';
-// import { Container } from './styles';
+import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, StatusBar } from 'react-native';
+
+import { Container } from './styles';
+
+import Routes from './routes';
+import colors from './styles/colors';
 
 const App: React.FC = () => (
-  <View>
-    <Text>App BuscaFarm</Text>
-  </View>
+
+  <NavigationContainer>
+    <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+    <Container>
+      <Routes />
+    </Container>
+
+  </NavigationContainer>
+
 );
 
 export default App;
