@@ -11,7 +11,7 @@ import colors from './styles/colors';
 const App: React.FC = () => (
 
   <NavigationContainer>
-    <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+    <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
     <Container>
       <Routes />
     </Container>
