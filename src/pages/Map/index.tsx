@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import MapView, { Region, Marker } from 'react-native-maps';
+import MapView, { Region } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 
 import {
-  ActivityIndicator, Alert, PermissionsAndroid, View,
+  ActivityIndicator, Alert, PermissionsAndroid, Platform, Text, View,
+  TouchableOpacity,
 } from 'react-native';
 
-import { Container, LoadingText } from './styles';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {
+  faInfo, faInfoCircle, faPlusCircle, faTimes,
+} from '@fortawesome/free-solid-svg-icons';
+
+import {
+  Container, LoadingText, ViewShowDetails, HeaderViewShowDetails, NameAndDistance, Name, Distance, IconInfo, AddToCartViewShowDetails, Price, ButtonGroup, ButtonDetails, ButtonBuy,
+} from './styles';
+
 import colors from '../../styles/colors';
 import MarkerPharmacie from '../../components/Map/MarkerPharmacie';
+import HeaderSearch from './components/HeaderSearch';
+import ButtonAndIcon from '../../components/global/ButtonAndIcon';
 
 const Map: React.FC = () => {
+  const [showDetails, setShowDetails] = useState(false);
+
   const [userLocation, setUserLocation] = useState<Region>({
     latitude: -11.1214945,
     longitude: -49.0833503,
@@ -62,38 +75,49 @@ const Map: React.FC = () => {
   return (
     <Container>
       {hasTheUserLocation ? (
-        <MapView
-          style={{ width: '100%', height: '100%' }}
-          showsUserLocation
-          showsMyLocationButton={false}
-          initialRegion={userLocation}
-        >
-          <MarkerPharmacie coordinate={{
-            latitude: -16.6923491,
-            longitude: -49.3303659,
-          }}
-          />
-          <MarkerPharmacie coordinate={{
-            latitude: -16.6964472,
-            longitude: -49.3287462,
-          }}
-          />
-          <MarkerPharmacie coordinate={{
-            latitude: -16.6949717,
-            longitude: -49.3263945,
-          }}
-          />
-          <MarkerPharmacie coordinate={{
-            latitude: -16.6921226,
-            longitude: -49.3246633,
-          }}
-          />
-          <MarkerPharmacie coordinate={{
-            latitude: -16.6859329,
-            longitude: -49.325818,
-          }}
-          />
-        </MapView>
+
+        <>
+          <HeaderSearch />
+
+          <MapView
+            style={{ width: '100%', height: '100%', flex: 8 }}
+            showsUserLocation
+            showsMyLocationButton={false}
+            initialRegion={userLocation}
+          >
+            <MarkerPharmacie
+              active={showDetails}
+              showDetails={() => { setShowDetails(true); }}
+              coordinate={{
+                latitude: -16.6923491,
+                longitude: -49.3303659,
+              }}
+            />
+
+          </MapView>
+          {showDetails && (
+            <ViewShowDetails>
+              <HeaderViewShowDetails>
+                <NameAndDistance>
+                  <Name>Drogaria Megafarma</Name>
+                  <Distance>Drogaria - 700m</Distance>
+                </NameAndDistance>
+                <TouchableOpacity onPress={() => { setShowDetails(false); }}>
+                  <IconInfo icon={faTimes} size={26} />
+                </TouchableOpacity>
+
+              </HeaderViewShowDetails>
+              <AddToCartViewShowDetails>
+                <Price>Valor: R$ 9,90</Price>
+                <ButtonGroup>
+                  <ButtonDetails color={colors.gray} icon={faInfoCircle}>DETALHES</ButtonDetails>
+                  <ButtonBuy color={colors.primary} icon={faPlusCircle}>COMPRAR</ButtonBuy>
+                </ButtonGroup>
+              </AddToCartViewShowDetails>
+
+            </ViewShowDetails>
+          )}
+        </>
       ) : (
         <View>
           <ActivityIndicator size="large" color={colors.primary} />
@@ -101,6 +125,7 @@ const Map: React.FC = () => {
         </View>
       )}
     </Container>
+
   );
 };
 

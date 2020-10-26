@@ -4,10 +4,15 @@ import { Marker, MarkerProps } from 'react-native-maps';
 
 import { Container, Name } from './styles';
 
-const MarkerPharmacie: React.FC<MarkerProps> = ({ coordinate }) => (
-  <Marker onPress={() => { Alert.alert('clicou'); }} coordinate={coordinate}>
-    <Container>
-      <Name>R$ 9,90</Name>
+interface IMarkerPharmacie extends MarkerProps {
+  showDetails(): void;
+  active: boolean;
+}
+
+const MarkerPharmacie: React.FC<IMarkerPharmacie> = ({ coordinate, active, showDetails }) => (
+  <Marker onPress={showDetails} coordinate={coordinate}>
+    <Container active={active}>
+      <Name active={active}>R$ 9,90</Name>
     </Container>
 
   </Marker>
