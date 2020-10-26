@@ -8,6 +8,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import Map from '../pages/Map';
 import colors from '../styles/colors';
+import Profile from '../pages/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -44,7 +45,7 @@ const Routes: React.FC = () => (
     }}
   >
     <Tab.Screen name="Mapa" component={Map} />
-    <Tab.Screen name="Perfil" component={Map} />
+    <Tab.Screen name="Perfil" component={Profile} />
     <Tab.Screen name="Carrinho" component={Map} options={{ tabBarBadge: 3 }} />
     <Tab.Screen name="Ajustes" component={Map} />
   </Tab.Navigator>
