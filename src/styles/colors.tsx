@@ -5,7 +5,7 @@ export default {
 
   grayInput: '#F0E8E7',
 
-  grayLigth: '#d9d9d9',
+  grayLigth: '#E5E5E5',
 
   border: '#ECE2E1',
 
