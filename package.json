@@ -17,6 +17,7 @@
     "@react-navigation/bottom-tabs": "^5.9.2",
     "@react-navigation/native": "^5.7.6",
     "@types/styled-components": "^5.1.4",
+    "polished": "^4.0.3",
     "react": "16.13.1",
     "react-native": "0.63.3",
     "react-native-geolocation-service": "^5.0.0",
