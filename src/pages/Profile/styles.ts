@@ -1,9 +1,9 @@
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styled from 'styled-components/native';
 import colors from '../../styles/colors';
 
 export const Container = styled.View`
- flex: 1;
+  flex: 1;
 `;
 export const ProfileHeader = styled.View`
   position: relative;
@@ -14,7 +14,6 @@ export const AvatarImage = styled.Image`
   height: 100px;
   border-radius: 50;
   border: 2px solid ${colors.white};
-
 `;
 
 export const ProfileNameUser = styled.Text`

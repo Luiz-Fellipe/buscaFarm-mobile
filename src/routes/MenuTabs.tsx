@@ -1,24 +1,25 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
 
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
-  faCogs, faMap, faMapMarkedAlt, faShoppingCart, faUser,
+  faCogs,
+  faMapMarkedAlt,
+  faShoppingCart,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+
 import Map from '../pages/Map';
 import colors from '../styles/colors';
-import Profile from '../pages/Profile';
+
+import {MapStackNavigator, ProfileStackNavigator} from './AppStack';
 
 const Tab = createBottomTabNavigator();
 
-const Routes: React.FC = () => (
-
+const MenuTabs: React.FC = () => (
   <Tab.Navigator
-
-    screenOptions={({ route }) => ({
-
-      tabBarIcon: ({ focused, color, size }) => {
+    screenOptions={({route}) => ({
+      tabBarIcon: ({color}) => {
         let icon = faUser;
 
         if (route.name === 'Mapa') {
@@ -41,15 +42,13 @@ const Routes: React.FC = () => (
       labelStyle: {
         fontSize: 14,
       },
-
     }}
   >
-    <Tab.Screen name="Mapa" component={Map} />
-    <Tab.Screen name="Perfil" component={Profile} />
-    <Tab.Screen name="Carrinho" component={Map} options={{ tabBarBadge: 3 }} />
+    <Tab.Screen name="Mapa" component={MapStackNavigator} />
+    <Tab.Screen name="Perfil" component={ProfileStackNavigator} />
+    <Tab.Screen name="Carrinho" component={Map} options={{tabBarBadge: 3}} />
     <Tab.Screen name="Ajustes" component={Map} />
   </Tab.Navigator>
-
 );
 
-export default Routes;
+export default MenuTabs;
