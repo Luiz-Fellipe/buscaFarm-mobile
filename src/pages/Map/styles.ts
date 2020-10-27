@@ -1,18 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styled from 'styled-components/native';
 import ButtonAndIcon from '../../components/global/ButtonAndIcon';
 import colors from '../../styles/colors';
 
 export const Container = styled.View`
- flex: 1;
- position: relative;
+  flex: 1;
+  position: relative;
 `;
 
 export const LoadingText = styled.Text`
- margin-top: 8px;
- font-size: 22px;
- color: ${colors.black};
- font-family: 'Raleway-Regular';
+  margin-top: 8px;
+  font-size: 22px;
+  color: ${colors.black};
+  font-family: 'Raleway-Regular';
 `;
 
 export const ViewShowDetails = styled.View`
@@ -43,7 +43,6 @@ export const HeaderViewShowDetails = styled.View`
 export const NameAndDistance = styled.View`
   margin-left: 10px;
   flex-direction: column;
-
 `;
 
 export const Name = styled.Text`
@@ -60,7 +59,7 @@ export const IconInfo = styled(FontAwesomeIcon)`
 `;
 
 export const AddToCartViewShowDetails = styled.View`
- flex: 2;
+  flex: 2;
 `;
 
 export const Price = styled.Text`
@@ -76,10 +75,9 @@ export const ButtonGroup = styled.View`
 `;
 
 export const ButtonDetails = styled(ButtonAndIcon)`
-width: 40%;
-margin-right: 10px;
+  width: 40%;
+  margin-right: 10px;
 `;
 export const ButtonBuy = styled(ButtonAndIcon)`
-width: 55%;
-
+  width: 55%;
 `;
