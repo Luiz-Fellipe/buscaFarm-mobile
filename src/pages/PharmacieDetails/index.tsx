@@ -1,8 +1,8 @@
 import React from 'react';
-import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
+import {faArrowLeft, faSearch} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {useNavigation} from '@react-navigation/native';
-import {Text, Image} from 'react-native';
+import {Text, FlatList, View} from 'react-native';
 import ProfileFarm from '../../assets/images/profileFarmacia.png';
 
 import {
@@ -15,11 +15,41 @@ import {
   OptionsFarm,
   NameFarm,
   ButtonCall,
-  Evaluate,
   ButtonsOption,
+  ImageFarm,
+  ListMedicine,
+  Line,
+  InputSearchDiv,
 } from './styles';
+import InputSearch from '../Map/components/HeaderSearch/components/InputSearch';
+import PharmacieList from '../../components/PharmacieList';
+
+const DATA = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
 
 const PharmacieDetails: React.FC = () => {
+  const renderItem = ({item}) => (
+    <View>
+      <PharmacieList
+        text="Dorflex"
+        subText="Medicamento"
+        value="12,90"
+        url="https://app-buscafarm.s3.amazonaws.com/5994dd0e1704307c4543-dorflex.jpg"
+      />
+    </View>
+  );
   const navigation = useNavigation();
   return (
     <Container>
@@ -29,19 +59,37 @@ const PharmacieDetails: React.FC = () => {
         </ButtonBack>
         <InfoFarm>
           <ProfilePhoto>
-            <Image source={ProfileFarm} />
+            <ImageFarm source={ProfileFarm} />
           </ProfilePhoto>
           <OptionsFarm>
-            <NameFarm>Drogaria Megafarma</NameFarm>
+            <NameFarm style={{fontWeight: 'bold'}}>Drogaria Megafarma</NameFarm>
             <ButtonsOption>
-              <Evaluate>Avaliar</Evaluate>
               <ButtonCall>Ligar</ButtonCall>
             </ButtonsOption>
           </OptionsFarm>
         </InfoFarm>
       </Header>
+      <ListMedicine>
+        <Line />
+        <Text style={{color: 'rgba(196, 196, 196, 1)'}}>
+          Lista de Medicamento
+        </Text>
+        <Line />
+      </ListMedicine>
+      <InputSearchDiv>
+        <InputSearch
+          name="Search"
+          icon={faSearch}
+          placeholder="Informe o medicamento ou farmacia"
+        />
+      </InputSearchDiv>
+
       <ListProducts>
-        <Text>List</Text>
+        <FlatList
+          data={DATA}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+        />
       </ListProducts>
     </Container>
   );
