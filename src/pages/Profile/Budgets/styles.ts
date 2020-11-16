@@ -23,7 +23,6 @@ export const LineHeader = styled.View`
 export const ButtonDate = styled.View`
   margin-top: 10px;
   padding: 20px;
-  width: 80%;
   height: 35px;
   flex-direction: row;
   border-radius: 3px;
