@@ -2,7 +2,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import styled from 'styled-components/native';
 import colors from '../../../styles/colors';
 
-export const Container = styled.View``;
+export const Container = styled.View`
+  background: ${colors.white};
+`;
 
 export const Header = styled.View`
   width: 100%;
@@ -34,12 +36,12 @@ export const ButtonDate = styled.View`
 export const TextFilter = styled.Text`
   color: #979494;
   font-size: 16px;
-  margin-right: 20px;
+  margin-right: 80px;
 `;
 export const TextDate = styled.Text`
   color: #979494;
   font-size: 16px;
-  margin-right: 80px;
+  margin-right: 180px;
 `;
 
 export const IconDate = styled(FontAwesomeIcon).attrs({
