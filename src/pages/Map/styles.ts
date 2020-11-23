@@ -8,13 +8,6 @@ export const Container = styled.View`
   position: relative;
 `;
 
-export const LoadingText = styled.Text`
-  margin-top: 8px;
-  font-size: 22px;
-  color: ${colors.black};
-  font-family: 'Raleway-Regular';
-`;
-
 export const ViewShowDetails = styled.View`
   width: 100%;
   height: 200px;
@@ -50,10 +43,6 @@ export const Name = styled.Text`
   font-size: 20px;
 `;
 
-export const Distance = styled.Text`
-  font-size: 16px;
-`;
-
 export const IconInfo = styled(FontAwesomeIcon)`
   margin-right: 25px;
 `;
@@ -81,3 +70,14 @@ export const ButtonDetails = styled(ButtonAndIcon)`
 export const ButtonBuy = styled(ButtonAndIcon)`
   width: 55%;
 `;
+
+export const ButtonBack = styled.TouchableOpacity`
+  position: absolute;
+  top: 45px;
+  left: 10px;
+  z-index: 10;
+  background-color: ${colors.white};
+  border-radius: 50;
+  padding: 10px;
+`;
+export const ButtonBackIcon = styled(FontAwesomeIcon)``;

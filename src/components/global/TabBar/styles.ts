@@ -10,6 +10,9 @@ export const Container = styled.View`
   flex-direction: row;
   height: 8%;
   background-color: ${colors.white};
+  border-top-width: 1px;
+  border-color: ${colors.grayLigth};
+  border-style: solid;
 `;
 
 export const MenuOption = styled.TouchableOpacity<MenuOptionProps>`
@@ -32,7 +35,7 @@ export const Badge = styled.Text<MenuOptionProps>`
   width: 20px;
   height: 20px;
   text-align: center;
-  border-radius: 18;
+  border-radius: 20px;
   border: 1px solid ${colors.white};
   top: 5px;
   right: 24px;
