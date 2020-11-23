@@ -35,7 +35,7 @@ export const Badge = styled.Text<MenuOptionProps>`
   width: 20px;
   height: 20px;
   text-align: center;
-  border-radius: 18;
+  border-radius: 20px;
   border: 1px solid ${colors.white};
   top: 5px;
   right: 24px;
