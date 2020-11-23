@@ -12,7 +12,7 @@ export const Container = styled.View<IContainerProps>`
   align-items: center;
   justify-content: center;
   height: 30;
-  width: 65;
+  padding: 0 5px;
 
   ${(props) =>
     props.active &&

@@ -1,6 +1,7 @@
 import {
   faCogs,
   faMapMarkedAlt,
+  faPills,
   faShoppingCart,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
@@ -37,8 +38,8 @@ const TabBar: React.FC = ({state, descriptors, navigation}) => {
 
         let icon = faUser;
 
-        if (route.name === 'Mapa') {
-          icon = faMapMarkedAlt;
+        if (route.name === 'Buscar') {
+          icon = faPills;
         } else if (route.name === 'Perfil') {
           icon = faUser;
         } else if (route.name === 'Carrinho') {

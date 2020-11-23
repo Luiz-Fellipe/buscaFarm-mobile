@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {View, Text, StatusBar} from 'react-native';
 
 import {Container} from './styles';
-
+import AppProvider from './hooks';
 import Routes from './routes/MenuTabs';
 
 const App: React.FC = () => (
@@ -14,9 +14,11 @@ const App: React.FC = () => (
       translucent
       backgroundColor="transparent"
     />
-    <Container>
-      <Routes />
-    </Container>
+    <AppProvider>
+      <Container>
+        <Routes />
+      </Container>
+    </AppProvider>
   </NavigationContainer>
 );
 

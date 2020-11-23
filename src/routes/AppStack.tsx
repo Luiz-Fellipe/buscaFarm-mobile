@@ -6,13 +6,15 @@ import PharmacieDetails from '../pages/PharmacieDetails';
 import Profile from '../pages/Profile';
 import Budgets from '../pages/Profile/Budgets';
 import EditProfile from '../pages/Profile/EditProfile';
+import SearchMedicine from '../pages/SearchMedicine';
 
 const Stack = createStackNavigator();
 
 // import { Container } from './styles';
 
-const MapStackNavigator: React.FC = () => (
-  <Stack.Navigator headerMode="none">
+const SearchStackNavigator: React.FC = () => (
+  <Stack.Navigator initialRouteName="Home" headerMode="none">
+    <Stack.Screen name="Home" component={SearchMedicine} />
     <Stack.Screen name="Map" component={Map} />
     <Stack.Screen name="Detalhes" component={PharmacieDetails} />
   </Stack.Navigator>
@@ -39,7 +41,7 @@ const SettingsStackNavigator: React.FC = () => (
 );
 
 export {
-  MapStackNavigator,
+  SearchStackNavigator,
   ProfileStackNavigator,
   CartStackNavigator,
   SettingsStackNavigator,

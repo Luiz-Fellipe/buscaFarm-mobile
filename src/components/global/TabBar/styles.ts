@@ -10,6 +10,9 @@ export const Container = styled.View`
   flex-direction: row;
   height: 8%;
   background-color: ${colors.white};
+  border-top-width: 1px;
+  border-color: ${colors.grayLigth};
+  border-style: solid;
 `;
 
 export const MenuOption = styled.TouchableOpacity<MenuOptionProps>`

@@ -88,7 +88,7 @@ const PharmacieDetails: React.FC = () => {
         <InputSearch
           name="Search"
           icon={faSearch}
-          placeholder="Informe o medicamento ou farmacia"
+          placeholder="Informe o medicamento"
         />
       </InputSearchDiv>
 

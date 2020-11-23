@@ -1,156 +1,142 @@
-import React, {useEffect, useState} from 'react';
-import MapView, {Region} from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
+import React, {useCallback, useState} from 'react';
+import MapView from 'react-native-maps';
+
+import {TouchableOpacity} from 'react-native';
 
 import {
-  ActivityIndicator,
-  Alert,
-  PermissionsAndroid,
-  Platform,
-  Text,
-  View,
-  TouchableOpacity,
-} from 'react-native';
-
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {
-  faInfo,
+  faArrowLeft,
   faInfoCircle,
   faPlusCircle,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {
   Container,
-  LoadingText,
   ViewShowDetails,
   HeaderViewShowDetails,
   NameAndDistance,
   Name,
-  Distance,
   IconInfo,
   AddToCartViewShowDetails,
   Price,
   ButtonGroup,
   ButtonDetails,
   ButtonBuy,
+  ButtonBack,
+  ButtonBackIcon,
 } from './styles';
 
 import colors from '../../styles/colors';
 import MarkerPharmacie from '../../components/Map/MarkerPharmacie';
-import HeaderSearch from './components/HeaderSearch';
+
+import {userLocation} from '../../hooks/userlocation';
+import formatCurrency from '../../utils/formatCurrency';
+
+interface IPharmacieMedicine {
+  pharmacie: {
+    id: string;
+    company_name: string;
+    avatar: string;
+    latitude: number;
+    longitude: number;
+  };
+  price: string;
+}
+
+interface IRouteParams {
+  medicine: {
+    pharmacies_medicines: IPharmacieMedicine[];
+  };
+}
 
 const Map: React.FC = () => {
   const navigation = useNavigation();
-
+  const route = useRoute();
+  const routeParams = route.params as IRouteParams;
+  const {location} = userLocation();
   const [showDetails, setShowDetails] = useState(false);
+  const [pharmacieDetail, setPharmacieDetail] = useState<IPharmacieMedicine>(
+    {} as IPharmacieMedicine,
+  );
 
-  const [userLocation, setUserLocation] = useState<Region>({
-    latitude: -11.1214945,
-    longitude: -49.0833503,
-    latitudeDelta: 0.014,
-    longitudeDelta: 0.014,
-  });
+  const navigateToGoBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
-  const [hasTheUserLocation, setHasTheUserLocation] = useState(false);
-
-  const requestLocationPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          title: 'Permissão para acessar sua localização',
-          message: 'O Aplicativo precisa que você infrome sua localização',
-          buttonNegative: 'Cancelar',
-          buttonPositive: 'OK',
-        },
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        Geolocation.getCurrentPosition(
-          (position) => {
-            setUserLocation({
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: 0.014,
-              longitudeDelta: 0.014,
-            });
-            setHasTheUserLocation(true);
-          },
-          (error) => {
-            setHasTheUserLocation(false);
-            Alert.alert('Erro ao pegar localização do usuário');
-          },
-          {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
-        );
-      }
-    } catch (err) {
-      Alert.alert(err);
-    }
-  };
-
-  useEffect(() => {
-    requestLocationPermission();
-  }, []);
+  const navigateToDetails = useCallback(
+    (id) => {
+      navigation.navigate('Detalhes', {id});
+    },
+    [navigation],
+  );
 
   return (
     <Container>
-      {hasTheUserLocation ? (
-        <>
-          <HeaderSearch />
-
-          <MapView
-            style={{width: '100%', height: '100%', flex: 8}}
-            showsUserLocation
-            showsMyLocationButton={false}
-            initialRegion={userLocation}>
+      <ButtonBack onPress={navigateToGoBack}>
+        <ButtonBackIcon icon={faArrowLeft} />
+      </ButtonBack>
+      <MapView
+        style={{width: '100%', height: '100%', flex: 8}}
+        showsUserLocation
+        showsMyLocationButton={false}
+        initialRegion={location}>
+        {routeParams.medicine.pharmacies_medicines.map(
+          (pharmacieMedicine: IPharmacieMedicine) => (
             <MarkerPharmacie
-              active={showDetails}
-              showDetails={() => {
+              key={pharmacieMedicine.pharmacie.id}
+              active={
+                pharmacieDetail.pharmacie &&
+                pharmacieMedicine.pharmacie.id === pharmacieDetail.pharmacie.id
+              }
+              pharmacieMedicine={pharmacieMedicine}
+              showDetails={(item) => {
                 setShowDetails(true);
+                setPharmacieDetail(item);
               }}
               coordinate={{
-                latitude: -16.6923491,
-                longitude: -49.3303659,
+                latitude: Number(pharmacieMedicine.pharmacie.latitude),
+                longitude: Number(pharmacieMedicine.pharmacie.longitude),
               }}
             />
-          </MapView>
-          {showDetails && (
-            <ViewShowDetails>
-              <HeaderViewShowDetails>
-                <NameAndDistance>
-                  <Name>Drogaria Megafarma</Name>
-                  <Distance>Drogaria - 700m</Distance>
-                </NameAndDistance>
-                <TouchableOpacity
-                  onPress={() => {
-                    setShowDetails(false);
-                  }}>
-                  <IconInfo icon={faTimes} size={26} />
-                </TouchableOpacity>
-              </HeaderViewShowDetails>
-              <AddToCartViewShowDetails>
-                <Price>Valor: R$ 9,90</Price>
-                <ButtonGroup>
-                  <ButtonDetails
-                    onPress={() => navigation.navigate('Detalhes')}
-                    color={colors.gray}
-                    icon={faInfoCircle}>
-                    DETALHES
-                  </ButtonDetails>
-                  <ButtonBuy color={colors.primary} icon={faPlusCircle}>
-                    COMPRAR
-                  </ButtonBuy>
-                </ButtonGroup>
-              </AddToCartViewShowDetails>
-            </ViewShowDetails>
-          )}
-        </>
-      ) : (
-        <View>
-          <ActivityIndicator size="large" color={colors.primary} />
-          <LoadingText>Carregando o mapa...</LoadingText>
-        </View>
+          ),
+        )}
+      </MapView>
+      {showDetails && (
+        <ViewShowDetails>
+          <HeaderViewShowDetails>
+            <NameAndDistance>
+              <Name>{pharmacieDetail.pharmacie.company_name}</Name>
+            </NameAndDistance>
+            <TouchableOpacity
+              onPress={() => {
+                setShowDetails(false);
+                setPharmacieDetail({} as IPharmacieMedicine);
+              }}>
+              <IconInfo icon={faTimes} size={26} />
+            </TouchableOpacity>
+          </HeaderViewShowDetails>
+          <AddToCartViewShowDetails>
+            <Price>
+              {`Valor: ${formatCurrency(
+                'pt-br',
+                'BRL',
+                Number(pharmacieDetail.price),
+              )}`}
+            </Price>
+            <ButtonGroup>
+              <ButtonDetails
+                onPress={() => navigateToDetails(pharmacieDetail.pharmacie.id)}
+                color={colors.gray}
+                icon={faInfoCircle}>
+                DETALHES
+              </ButtonDetails>
+              <ButtonBuy color={colors.primary} icon={faPlusCircle}>
+                COMPRAR
+              </ButtonBuy>
+            </ButtonGroup>
+          </AddToCartViewShowDetails>
+        </ViewShowDetails>
       )}
     </Container>
   );
