@@ -1,9 +1,13 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import styled from 'styled-components/native';
+import styled, {css} from 'styled-components/native';
 import colors from '../../../styles/colors';
 
-export const Container = styled.View`
-  width: 70%;
+interface IContainerProps {
+  isErrored: boolean;
+}
+
+export const Container = styled.View<IContainerProps>`
+  width: 100%;
   height: 60px;
   padding: 0 16px;
   background: #ece2e1;
@@ -11,11 +15,18 @@ export const Container = styled.View`
   margin-bottom: 8px;
   flex-direction: row;
   align-items: center;
+
+  ${(props) =>
+    props.isErrored &&
+    css`
+      border: 2px;
+      border-color: ${colors.red};
+    `}
 `;
 
 export const TextInput = styled.TextInput`
   flex: 1;
-  color: ${colors.white};
+  color: ${colors.black};
   font-size: 16px;
   font-family: 'Raleway-Regular';
 `;

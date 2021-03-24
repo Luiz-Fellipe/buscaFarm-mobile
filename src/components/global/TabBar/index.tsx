@@ -71,6 +71,7 @@ const TabBar: React.FC = ({state, descriptors, navigation}) => {
 
         return (
           <MenuOption
+            key={route}
             isFocused={isFocused}
             onPress={onPress}
             onLongPress={onLongPress}>

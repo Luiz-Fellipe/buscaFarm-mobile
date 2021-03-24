@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {debounce} from 'lodash';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import HeaderSearch from '../Map/components/HeaderSearch';
-import {userLocation} from '../../hooks/userlocation';
+
 import {
   Container,
   Body,
@@ -24,6 +24,7 @@ import {
 } from './styles';
 import api from '../../services/api';
 import colors from '../../styles/colors';
+import {useAuth} from '../../context/AuthContext';
 
 interface PageProps {
   pageStart: number;
@@ -35,7 +36,7 @@ const LIMIT_PER_PAGE = 30;
 const SearchMedicine: React.FC = () => {
   const navigation = useNavigation();
 
-  const {getLocationUser} = userLocation();
+  const {getLocationUser} = useAuth();
 
   const [medicines, setMedicines] = useState([]);
 
@@ -53,6 +54,14 @@ const SearchMedicine: React.FC = () => {
   const loadMedicines = useCallback(async () => {
     try {
       setLoading(true);
+
+      console.log({
+        params: {
+          pageStart: pageState.pageStart,
+          pageLength: LIMIT_PER_PAGE,
+          search: pageState.searchValue,
+        },
+      });
       const {
         data: {data},
       } = await api.get('/medicines', {
@@ -76,7 +85,7 @@ const SearchMedicine: React.FC = () => {
   }, [loadMedicines]);
 
   const handleSearchValue = useCallback((value) => {
-    setPageState({pageStart: 1, searchValue: value});
+    setPageState({pageStart: 0, searchValue: value});
   }, []);
 
   const debounced = useCallback(

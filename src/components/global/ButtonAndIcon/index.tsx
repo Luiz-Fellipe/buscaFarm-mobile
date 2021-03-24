@@ -1,11 +1,13 @@
 import {IconProp} from '@fortawesome/fontawesome-svg-core';
 import React from 'react';
+import {RectButtonProperties} from 'react-native-gesture-handler';
 
 import {Button, ButtonText, IconBackground, Icon} from './styles';
 
-interface ButtonAndIconProps {
+interface ButtonAndIconProps extends RectButtonProperties {
   icon: IconProp;
   color: string;
+  children: string;
 }
 
 const ButtonAndIcon: React.FC<ButtonAndIconProps> = ({

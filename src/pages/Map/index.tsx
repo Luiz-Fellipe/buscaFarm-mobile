@@ -30,8 +30,8 @@ import {
 import colors from '../../styles/colors';
 import MarkerPharmacie from '../../components/Map/MarkerPharmacie';
 
-import {userLocation} from '../../hooks/userlocation';
 import formatCurrency from '../../utils/formatCurrency';
+import {useAuth} from '../../context/AuthContext';
 
 interface IPharmacieMedicine {
   pharmacie: {
@@ -54,7 +54,7 @@ const Map: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const routeParams = route.params as IRouteParams;
-  const {location} = userLocation();
+  const {location} = useAuth();
   const [showDetails, setShowDetails] = useState(false);
   const [pharmacieDetail, setPharmacieDetail] = useState<IPharmacieMedicine>(
     {} as IPharmacieMedicine,

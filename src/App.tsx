@@ -4,8 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {View, Text, StatusBar} from 'react-native';
 
 import {Container} from './styles';
-import AppProvider from './hooks';
-import Routes from './routes/MenuTabs';
+import AppProvider from './context';
+import Routes from './routes';
 
 const App: React.FC = () => (
   <NavigationContainer>
