@@ -65,8 +65,8 @@ const Map: React.FC = () => {
   }, [navigation]);
 
   const navigateToDetails = useCallback(
-    (id) => {
-      navigation.navigate('Detalhes', {id});
+    (pharmacie) => {
+      navigation.navigate('Detalhes', {pharmacie});
     },
     [navigation],
   );
@@ -126,7 +126,7 @@ const Map: React.FC = () => {
             </Price>
             <ButtonGroup>
               <ButtonDetails
-                onPress={() => navigateToDetails(pharmacieDetail.pharmacie.id)}
+                onPress={() => navigateToDetails(pharmacieDetail.pharmacie)}
                 color={colors.gray}
                 icon={faInfoCircle}>
                 DETALHES

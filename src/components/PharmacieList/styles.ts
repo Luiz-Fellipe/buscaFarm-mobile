@@ -6,18 +6,19 @@ import colors from '../../styles/colors';
 import ButtonAndIcon from '../global/ButtonAndIcon';
 
 export const Container = styled.View`
-  width: 100%;
-  padding: 0 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 25px;
+
+  flex: 1;
 `;
 
 export const InfoMed = styled.View`
-  justify-content: center;
   align-items: center;
   flex-direction: row;
+
+  flex: 2;
 `;
 
 export const LogoDiv = styled.View``;
@@ -27,10 +28,12 @@ export const LogoMed = styled(Image)`
   height: 70px;
 `;
 
-export const TitleDiv = styled.View``;
+export const TitleDiv = styled.View`
+  margin-left: 10px;
+`;
 
 export const TitleMed = styled(Text)`
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const Subtitle = styled(Text)`
@@ -39,7 +42,8 @@ export const Subtitle = styled(Text)`
 `;
 
 export const ValueButton = styled.View`
-  margin-top: 20px;
+  flex: 1;
+  align-items: center;
 `;
 
 export const ButtonPrice = styled.View``;
@@ -54,6 +58,6 @@ export const IconAdd = styled(FontAwesomeIcon)`
 `;
 
 export const ButtonBuy = styled(ButtonAndIcon)`
-  width: 150px;
+  width: 125px;
   height: 35px;
 `;

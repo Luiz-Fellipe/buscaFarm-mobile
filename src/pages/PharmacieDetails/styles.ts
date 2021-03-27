@@ -37,12 +37,15 @@ export const ProfilePhoto = styled.View`
 export const ImageFarm = styled(Image)`
   width: 105px;
   height: 105px;
+  border-radius: 50;
+  border: 2px solid ${colors.white};
 `;
 
 export const OptionsFarm = styled.View`
-  width: 100%;
-  margin-top: 15px;
-  margin-left: 10px;
+  flex: 1;
+  flex-grow: 1;
+  width: 0;
+  padding: 10px 20px;
 `;
 
 export const NameFarm = styled.Text`
@@ -53,6 +56,8 @@ export const NameFarm = styled.Text`
 
 export const ButtonsOption = styled.View`
   flex-direction: row;
+  justify-content: flex-start;
+  margin-top: 10px;
 `;
 
 export const ButtonCall = styled(Button)`
@@ -70,9 +75,9 @@ export const ListMedicine = styled.View`
 
 export const Line = styled.View`
   width: 60%;
-  margin-left: 20px;
-  margin-right: 20px;
-  height: 2px;
+
+  height: 1px;
+  margin: 20px 20px;
   background: #bdbdbd;
 `;
 
@@ -80,4 +85,26 @@ export const InputSearchDiv = styled.View`
   background: ${colors.white};
   align-items: center;
   margin-top: 10px;
+`;
+
+export const AdressFarm = styled.Text``;
+
+export const NoResults = styled.View`
+  flex: 2;
+  justify-content: center;
+  align-items: center;
+  background-color: ${colors.white};
+`;
+export const NoResultsText = styled.Text`
+  margin-top: 20px;
+  font-family: 'Raleway-Medium';
+  font-size: 20px;
+  text-align: center;
+`;
+
+export const BoxLoading = styled.View`
+  flex: 2;
+  background-color: ${colors.white};
+  justify-content: center;
+  align-items: center;
 `;
