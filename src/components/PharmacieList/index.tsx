@@ -33,7 +33,11 @@ const PharmacieList: React.FC<PharmacieListProps> = ({
     <Container>
       <InfoMed>
         <LogoDiv>
-          <LogoMed source={{uri: url}} />
+          <LogoMed
+            source={{
+              uri: url || 'https://app-buscafarm.s3.amazonaws.com/sem-foto.png',
+            }}
+          />
         </LogoDiv>
         <TitleDiv>
           <TitleMed>{text}</TitleMed>
@@ -43,7 +47,7 @@ const PharmacieList: React.FC<PharmacieListProps> = ({
       <ValueButton>
         <ButtonPrice>
           <ButtonBuy color={colors.primary} icon={faPlusCircle}>
-            R$ 4,47
+            {`R$ ${value}`}
           </ButtonBuy>
         </ButtonPrice>
       </ValueButton>

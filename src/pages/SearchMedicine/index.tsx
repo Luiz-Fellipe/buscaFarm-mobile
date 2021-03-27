@@ -55,13 +55,6 @@ const SearchMedicine: React.FC = () => {
     try {
       setLoading(true);
 
-      console.log({
-        params: {
-          pageStart: pageState.pageStart,
-          pageLength: LIMIT_PER_PAGE,
-          search: pageState.searchValue,
-        },
-      });
       const {
         data: {data},
       } = await api.get('/medicines', {
