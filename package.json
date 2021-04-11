@@ -23,6 +23,7 @@
     "@unform/core": "^2.1.6",
     "@unform/mobile": "^2.1.6",
     "axios": "^0.21.0",
+    "date-fns": "^2.19.0",
     "intl": "^1.2.5",
     "lodash": "^4.17.20",
     "polished": "^4.0.3",

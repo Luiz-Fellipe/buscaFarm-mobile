@@ -1,8 +1,11 @@
-import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
-import {FlatList, View} from 'react-native';
+import {faCalendarAlt, faTimesCircle} from '@fortawesome/free-solid-svg-icons';
+import React, {useCallback, useEffect, useState} from 'react';
+import {ActivityIndicator, Alert, FlatList, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {format} from 'date-fns';
 import BudgetsList from '../../../components/BudgetsList';
+import {useAuth} from '../../../context/AuthContext';
+import api from '../../../services/api';
 
 import {
   Container,
@@ -14,7 +17,13 @@ import {
   TextDate,
   TextFilter,
   IconDate,
+  NoResults,
+  NoResultsText,
 } from './styles';
+import { BoxLoading } from '../../PharmacieDetails/styles';
+import colors from '../../../styles/colors';
+import formatCurrency from '../../../utils/formatCurrency';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const DATA = [
   {
@@ -43,16 +52,70 @@ const DATA = [
   },
 ];
 
-const Budgets: React.FC = () => {
-  const initialDate = new Date();
-  const [datePickerModal, setDatePickerModal] = useState(false);
-  const [date, setDate] = useState(initialDate);
+interface PageProps {
+  pageStart: number;
+  date: Date | null;
+}
 
-  const renderItem = ({item}) => (
+const Budgets: React.FC = () => {
+  const {user} = useAuth();
+  const [datePickerModal, setDatePickerModal] = useState(false);
+  const [budgets, setBudgets] = useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const initialDate = new Date();
+  const [pageState, setPageState] = useState<PageProps>({
+    pageStart: 0,
+    date: null,
+  });
+
+  const LIMIT_PER_PAGE = 60;
+
+  const loadBudgets = useCallback(async () => {
+    try {
+      setLoading(true);
+      console.log({
+        pageStart: pageState.pageStart,
+        pageLength: LIMIT_PER_PAGE,
+        date: pageState.date,
+        user_id: user.id,
+      });
+      const {
+        data: {data},
+      } = await api.get(`/budgets`, {
+        params: {
+          pageStart: pageState.pageStart,
+          pageLength: LIMIT_PER_PAGE,
+          date: pageState.date,
+          user_id: user.id,
+        },
+      });
+
+      setBudgets(data);
+      setLoading(false);
+    } catch (error) {
+      console.log('error', error);
+      setLoading(false);
+      Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
+    }
+  }, [pageState, user.id]);
+
+  useEffect(() => {
+    loadBudgets();
+  }, [loadBudgets]);
+  const renderItem = ({item}: any) => (
     <View>
-      <BudgetsList text={item.title} textDate="20/11/2020" price="12,90" />
+      <BudgetsList
+        text={item.pharmacie.company_name}
+        textDate={format(new Date(item.created_at), 'dd/MM/yyyy')}
+        price={formatCurrency(
+          'pt-br',
+          'BRL',
+          Number(item.value),
+        )}
+      />
     </View>
   );
+
   return (
     <Container>
       <Header>
@@ -60,41 +123,66 @@ const Budgets: React.FC = () => {
         <InputDate onPress={() => setDatePickerModal(true)}>
           <ButtonDate>
             <IconDate icon={faCalendarAlt} />
-            {date === initialDate ? (
+            {!pageState.date ? (
               <TextFilter>Filtre a partir de uma data...</TextFilter>
             ) : (
               <TextDate>
                 {`${
-                  date.getDate() <= 9 ? `0${date.getDate()}` : date.getDate()
+                  pageState.date.getDate() <= 9 ? `0${pageState.date.getDate()}` : pageState.date.getDate()
                 }/${
-                  date.getMonth() < 9
-                    ? `0${date.getMonth() + 1}`
-                    : date.getMonth() + 1
-                }/${date.getFullYear()}`}
+                  pageState.date.getMonth() < 9
+                    ? `0${pageState.date.getMonth() + 1}`
+                    : pageState.date.getMonth() + 1
+                }/${pageState.date.getFullYear()}`}
               </TextDate>
             )}
           </ButtonDate>
         </InputDate>
       </Header>
-      <LineHeader />
+     
 
-      <FlatList
-        data={DATA}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        ItemSeparatorComponent={LineHeader}
-        style={{marginBottom: 40}}
-      />
+        {loading && (
+            <BoxLoading style={{flex: 1, justifyContent: 'center', aliginItems: 'center'}}>
+              <ActivityIndicator size="large" color={colors.primary} />
+            </BoxLoading>
+        )}
+
+      {!loading && budgets.length > 0 && (
+        <FlatList
+          data={budgets}
+          keyExtractor={(item: any) => item.id}
+          renderItem={renderItem}
+        />
+      )}
+
+
+      {!loading && budgets.length === 0 && (
+            <NoResults>
+              <FontAwesomeIcon size={60} icon={faTimesCircle} />
+              <NoResultsText>Nenhum orçamento encontrado.</NoResultsText>
+            </NoResults>
+      )}
+
 
       <DateTimePickerModal
         isVisible={datePickerModal}
         mode="date"
-        date={date}
+        date={pageState.date || new Date()}
         onConfirm={(dateString) => {
+          console.log('aqui', typeof dateString);
           setDatePickerModal(false);
-          setDate(dateString);
+          setPageState({
+            pageStart: 0,
+            date: dateString
+          })
         }}
-        onCancel={() => setDatePickerModal(false)}
+        onCancel={() => {
+          setPageState({
+            pageStart: 0,
+            date: null
+          })
+          setDatePickerModal(false)
+        } }
       />
     </Container>
   );
