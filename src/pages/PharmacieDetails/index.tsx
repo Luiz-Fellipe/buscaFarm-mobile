@@ -107,7 +107,6 @@ const PharmacieDetails: React.FC = () => {
       setDataPharmacieMedicine(data);
       setLoading(false);
     } catch (error) {
-      console.log('eeror', error);
       setLoading(false);
       Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
     }
@@ -172,8 +171,7 @@ const PharmacieDetails: React.FC = () => {
                   <ButtonCall
                     color=""
                     onPress={() =>
-                      Linking.openURL(`tel:${routeParams.pharmacie.phone}`)
-                    }>
+                      Linking.openURL(`tel:${routeParams.pharmacie.phone}`)}>
                     Ligar
                   </ButtonCall>
                 </ButtonsOption>
