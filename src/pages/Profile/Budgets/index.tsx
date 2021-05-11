@@ -1,8 +1,9 @@
 import {faCalendarAlt} from '@fortawesome/free-solid-svg-icons';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import BudgetsList from '../../../components/BudgetsList';
+import { useCart } from '../../../context/CartContext';
 
 import {
   Container,
@@ -47,6 +48,8 @@ const Budgets: React.FC = () => {
   const initialDate = new Date();
   const [datePickerModal, setDatePickerModal] = useState(false);
   const [date, setDate] = useState(initialDate);
+
+
 
   const renderItem = ({item}) => (
     <View>

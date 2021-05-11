@@ -107,7 +107,6 @@ const PharmacieDetails: React.FC = () => {
       setDataPharmacieMedicine(data);
       setLoading(false);
     } catch (error) {
-      console.log('eeror', error);
       setLoading(false);
       Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
     }
