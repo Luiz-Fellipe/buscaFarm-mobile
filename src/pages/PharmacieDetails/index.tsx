@@ -171,8 +171,7 @@ const PharmacieDetails: React.FC = () => {
                   <ButtonCall
                     color=""
                     onPress={() =>
-                      Linking.openURL(`tel:${routeParams.pharmacie.phone}`)
-                    }>
+                      Linking.openURL(`tel:${routeParams.pharmacie.phone}`)}>
                     Ligar
                   </ButtonCall>
                 </ButtonsOption>
