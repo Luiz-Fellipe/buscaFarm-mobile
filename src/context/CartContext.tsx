@@ -28,6 +28,7 @@ interface IPharmacie {
     avatar: string;
     latitude: number;
     longitude: number;
+    phone: string;
     medicines: IMedicine[];
   };
 }
@@ -52,7 +53,7 @@ interface ICartContextData {
     amount: string,
   ): void;
   handleTotalBudget(pharmacieId: string): void;
-  handleSendBudget(pharmacieId: string): void;
+  handleSendBudget(pharmacieId: string, userId: string): void;
   loading: boolean;
   total: number;
 
@@ -134,7 +135,7 @@ const CartProvider: React.FC = ({children}) => {
             (p) => p.pharmacie.id !== pharmacieId,
           );
           setPharmaciesInCart(updatedMedicines);
-
+            
           const message = `Olá, me chamo ${
             user.name
           }, e acabei de te enviar um orçamento. \n \n Id: ${
@@ -146,7 +147,7 @@ const CartProvider: React.FC = ({children}) => {
           )} `;
 
           Linking.openURL(
-            `whatsapp://send?text=${message}&phone=5562984982049`,
+            `whatsapp://send?text=${message}&phone=${findPharmacie.pharmacie.phone}`,
           );
         } catch (error) {
           setLoading(false);
