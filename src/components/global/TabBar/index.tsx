@@ -5,8 +5,9 @@ import {
   faShoppingCart,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TouchableOpacity, View} from 'react-native';
+import {useCart} from '../../../context/CartContext';
 
 import {
   Container,
@@ -18,7 +19,7 @@ import {
 
 const TabBar: React.FC = ({state, descriptors, navigation}) => {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
-
+  const {pharmaciesInCart, total} = useCart();
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
@@ -71,14 +72,14 @@ const TabBar: React.FC = ({state, descriptors, navigation}) => {
 
         return (
           <MenuOption
-            key={route}
+            key={route.key}
             isFocused={isFocused}
             onPress={onPress}
             onLongPress={onLongPress}>
             <IconMenuOption isFocused={isFocused} icon={icon} size={20} />
             <TextMenuOption isFocused={isFocused}>{label}</TextMenuOption>
             {options.tabBarBadge && (
-              <Badge isFocused={isFocused}>{options.tabBarBadge}</Badge>
+              <Badge isFocused={isFocused}>{total}</Badge>
             )}
           </MenuOption>
         );

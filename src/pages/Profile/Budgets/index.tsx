@@ -3,6 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {ActivityIndicator, Alert, FlatList, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import {format} from 'date-fns';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import BudgetsList from '../../../components/BudgetsList';
 import {useAuth} from '../../../context/AuthContext';
 import api from '../../../services/api';
@@ -20,10 +21,9 @@ import {
   NoResults,
   NoResultsText,
 } from './styles';
-import { BoxLoading } from '../../PharmacieDetails/styles';
+import {BoxLoading} from '../../PharmacieDetails/styles';
 import colors from '../../../styles/colors';
 import formatCurrency from '../../../utils/formatCurrency';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 const DATA = [
   {
@@ -107,11 +107,7 @@ const Budgets: React.FC = () => {
       <BudgetsList
         text={item.pharmacie.company_name}
         textDate={format(new Date(item.created_at), 'dd/MM/yyyy')}
-        price={formatCurrency(
-          'pt-br',
-          'BRL',
-          Number(item.value),
-        )}
+        price={formatCurrency('pt-br', 'BRL', Number(item.value))}
       />
     </View>
   );
@@ -128,7 +124,9 @@ const Budgets: React.FC = () => {
             ) : (
               <TextDate>
                 {`${
-                  pageState.date.getDate() <= 9 ? `0${pageState.date.getDate()}` : pageState.date.getDate()
+                  pageState.date.getDate() <= 9
+                    ? `0${pageState.date.getDate()}`
+                    : pageState.date.getDate()
                 }/${
                   pageState.date.getMonth() < 9
                     ? `0${pageState.date.getMonth() + 1}`
@@ -139,13 +137,13 @@ const Budgets: React.FC = () => {
           </ButtonDate>
         </InputDate>
       </Header>
-     
 
-        {loading && (
-            <BoxLoading style={{flex: 1, justifyContent: 'center', aliginItems: 'center'}}>
-              <ActivityIndicator size="large" color={colors.primary} />
-            </BoxLoading>
-        )}
+      {loading && (
+        <BoxLoading
+          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </BoxLoading>
+      )}
 
       {!loading && budgets.length > 0 && (
         <FlatList
@@ -155,14 +153,12 @@ const Budgets: React.FC = () => {
         />
       )}
 
-
       {!loading && budgets.length === 0 && (
-            <NoResults>
-              <FontAwesomeIcon size={60} icon={faTimesCircle} />
-              <NoResultsText>Nenhum orçamento encontrado.</NoResultsText>
-            </NoResults>
+        <NoResults>
+          <FontAwesomeIcon size={60} icon={faTimesCircle} />
+          <NoResultsText>Nenhum orçamento encontrado.</NoResultsText>
+        </NoResults>
       )}
-
 
       <DateTimePickerModal
         isVisible={datePickerModal}
@@ -173,16 +169,16 @@ const Budgets: React.FC = () => {
           setDatePickerModal(false);
           setPageState({
             pageStart: 0,
-            date: dateString
-          })
+            date: dateString,
+          });
         }}
         onCancel={() => {
           setPageState({
             pageStart: 0,
-            date: null
-          })
-          setDatePickerModal(false)
-        } }
+            date: null,
+          });
+          setDatePickerModal(false);
+        }}
       />
     </Container>
   );
