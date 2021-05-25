@@ -135,10 +135,10 @@ const CartProvider: React.FC = ({children}) => {
             (p) => p.pharmacie.id !== pharmacieId,
           );
           setPharmaciesInCart(updatedMedicines);
-            
+      
           const message = `Olá, me chamo ${
             user.name
-          }, e acabei de te enviar um orçamento. \n \n Id: ${
+          }, e acabei de te enviar um orçamento. \n \n Link: https://buscafarm.com/orcamentos/${
             data.id
           } \n Valor: ${formatCurrency(
             'pt-br',
@@ -155,7 +155,7 @@ const CartProvider: React.FC = ({children}) => {
         }
       }
     },
-    [pharmaciesInCart],
+    [pharmaciesInCart,user],
   );
 
   const handleUpdateMedicineAmount = useCallback(

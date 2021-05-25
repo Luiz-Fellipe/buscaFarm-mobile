@@ -53,11 +53,11 @@ const Profile: React.FC = () => {
             </ButtonSignOut>
           </ProfileHeader>
           <ProfileMenu>
-            <ProfileOption onPress={() => navigation.navigate('Edit')}>
+            {/* <ProfileOption onPress={() => navigation.navigate('Edit')}>
               <ProfileOptionIcon icon={faUser} size={24} />
               <ProfileOptionText>Editar Perfil</ProfileOptionText>
               <ProfileOptionIcon icon={faAngleRight} size={24} />
-            </ProfileOption>
+            </ProfileOption> */}
             <ProfileOption onPress={() => navigation.navigate('Budgets')}>
               <ProfileOptionIcon icon={faFileInvoiceDollar} size={24} />
               <ProfileOptionText>Meus Orçamentos</ProfileOptionText>

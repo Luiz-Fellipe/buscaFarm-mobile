@@ -105,9 +105,9 @@ const SignIn: React.FC = () => {
                   formRef.current?.submitForm();
                 }}
               />
-              <ForgotPassword onPress={() => {}}>
+              {/* <ForgotPassword onPress={() => {}}>
                 <ForgotPasswordText>Esqueceu sua senha ?</ForgotPasswordText>
-              </ForgotPassword>
+              </ForgotPassword> */}
 
               <Button
                 onPress={() => {
@@ -120,9 +120,9 @@ const SignIn: React.FC = () => {
               </Button>
             </FormLogin>
 
-            <CreateAccountButton onPress={() => {}}>
+            {/* <CreateAccountButton onPress={() => {}}>
               <CreateAccountButtonText>Criar uma conta</CreateAccountButtonText>
-            </CreateAccountButton>
+            </CreateAccountButton> */}
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>

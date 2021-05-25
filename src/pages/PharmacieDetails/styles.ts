@@ -96,3 +96,16 @@ export const BoxLoading = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+
+
+export const NoResults = styled.View`
+ flex:2;
+ justify-content: center;
+ align-items: center;
+`;
+
+export const NoResultsText = styled.Text`
+  font-size: 18px;
+  font-family: 'Raleway-Bold';
+  `;
