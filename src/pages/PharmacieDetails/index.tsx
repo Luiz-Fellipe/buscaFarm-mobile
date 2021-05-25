@@ -87,14 +87,14 @@ const PharmacieDetails: React.FC = () => {
     searchValue: '',
   });
   const [dataPharmacieMedicine, setDataPharmacieMedicine] = useState<
-    iPharmacie[]
+    iPharmacie[] | []
   >([]);
   const loadPharmacieId = useCallback(async () => {
     try {
       setLoading(true);
-
+   
       const {
-        data: {data},
+        data
       } = await api.get(`/pharmacies/medicines/get`, {
         params: {
           pageStart: pageState.pageStart,
@@ -103,10 +103,17 @@ const PharmacieDetails: React.FC = () => {
           pharmacieId: routeParams.pharmacie.id,
         },
       });
-
-      setDataPharmacieMedicine(data);
+    
+      if(data.count > 0){
+        setDataPharmacieMedicine(data.data);
+      }else {
+     
+        setDataPharmacieMedicine([]);
+      }
+     
       setLoading(false);
     } catch (error) {
+      console.log('eerordofid',error);
       setLoading(false);
       Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
     }
@@ -128,6 +135,7 @@ const PharmacieDetails: React.FC = () => {
   );
 
   const renderItem = ({item}: any) => {
+
     return (
       <View>
         <PharmacieList
