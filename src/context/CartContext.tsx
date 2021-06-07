@@ -217,6 +217,7 @@ const CartProvider: React.FC = ({children}) => {
 
   const handleAddPharmacieAndMedicines = useCallback(
     (item) => {
+      console.log('item',item);
       const {pharmacie} = item;
 
       const findPharmacie = pharmaciesInCart.findIndex(

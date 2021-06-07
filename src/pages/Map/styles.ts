@@ -77,7 +77,7 @@ export const ButtonBack = styled.TouchableOpacity`
   left: 10px;
   z-index: 10;
   background-color: ${colors.white};
-  border-radius: 50;
+  border-radius: 50px;
   padding: 10px;
 `;
 export const ButtonBackIcon = styled(FontAwesomeIcon)``;

@@ -73,12 +73,7 @@ const Budgets: React.FC = () => {
   const loadBudgets = useCallback(async () => {
     try {
       setLoading(true);
-      console.log({
-        pageStart: pageState.pageStart,
-        pageLength: LIMIT_PER_PAGE,
-        date: pageState.date,
-        user_id: user.id,
-      });
+     
       const {
         data: {data},
       } = await api.get(`/budgets`, {
@@ -93,7 +88,7 @@ const Budgets: React.FC = () => {
       setBudgets(data);
       setLoading(false);
     } catch (error) {
-      console.log('error', error);
+   
       setLoading(false);
       Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
     }
@@ -165,7 +160,7 @@ const Budgets: React.FC = () => {
         mode="date"
         date={pageState.date || new Date()}
         onConfirm={(dateString) => {
-          console.log('aqui', typeof dateString);
+  
           setDatePickerModal(false);
           setPageState({
             pageStart: 0,
