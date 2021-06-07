@@ -132,9 +132,7 @@ const CartDetails: React.FC = () => {
       </ItemList>
     );
   };
-  useEffect(() => {
-    console.log('loading', loading);
-  }, [loading]);
+
 
   return (
     <Container>

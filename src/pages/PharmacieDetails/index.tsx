@@ -113,7 +113,7 @@ const PharmacieDetails: React.FC = () => {
      
       setLoading(false);
     } catch (error) {
-      console.log('eerordofid',error);
+
       setLoading(false);
       Alert.alert(`Erro ao buscar os medicamentos: ${error}`);
     }
@@ -135,14 +135,17 @@ const PharmacieDetails: React.FC = () => {
   );
 
   const renderItem = ({item}: any) => {
-
+    
     return (
       <View>
         <PharmacieList
-          text={item.medicine.name}
-          subText={item.medicine.manufacturer}
-          value={item.price}
-          url={item.medicine.image_url}
+          medicine={item}
+          pharmacie={routeParams.pharmacie}
+          // medicineId={item.medicine.id}
+          // text={item.medicine.name}
+          // subText={item.medicine.manufacturer}
+          // value={item.price}
+          // url={item.medicine.image_url}
         />
       </View>
     );

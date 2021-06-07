@@ -54,7 +54,7 @@ const Cart: React.FC = () => {
     ({item}) => {
       const {pharmacie} = item;
       return (
-        <ItemList onPress={() => navigateToDetails(item)}>
+        <ItemList key={pharmacie.company_name} onPress={() => navigateToDetails(item)}>
           <BoxLeft>
             {pharmacie.avatar_url ? (
               <ImageMedicine
