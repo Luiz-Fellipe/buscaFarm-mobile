@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import MapView from 'react-native-maps';
 
 import {TouchableOpacity} from 'react-native';
@@ -32,6 +32,7 @@ import MarkerPharmacie from '../../components/Map/MarkerPharmacie';
 
 import formatCurrency from '../../utils/formatCurrency';
 import {useAuth} from '../../context/AuthContext';
+import {useCart} from '../../context/CartContext';
 
 interface IPharmacieMedicine {
   pharmacie: {
@@ -47,6 +48,10 @@ interface IPharmacieMedicine {
 interface IRouteParams {
   medicine: {
     pharmacies_medicines: IPharmacieMedicine[];
+    id: string;
+    name: string;
+    manufacturer: string;
+    image_url: string;
   };
 }
 
@@ -55,6 +60,7 @@ const Map: React.FC = () => {
   const route = useRoute();
   const routeParams = route.params as IRouteParams;
   const {location} = useAuth();
+  const {handleAddPharmacieAndMedicines} = useCart();
   const [showDetails, setShowDetails] = useState(false);
   const [pharmacieDetail, setPharmacieDetail] = useState<IPharmacieMedicine>(
     {} as IPharmacieMedicine,
@@ -131,7 +137,24 @@ const Map: React.FC = () => {
                 icon={faInfoCircle}>
                 DETALHES
               </ButtonDetails>
-              <ButtonBuy color={colors.primary} icon={faPlusCircle}>
+              <ButtonBuy
+                color={colors.primary}
+                icon={faPlusCircle}
+                onPress={() =>
+                  handleAddPharmacieAndMedicines({
+                    pharmacie: {
+                      ...pharmacieDetail.pharmacie,
+                      medicines: {
+                        medicine_id: routeParams.medicine.id,
+                        name: routeParams.medicine.name,
+                        image_url: routeParams.medicine.image_url,
+                        manufacturer: routeParams.medicine.image_url,
+                        amount: 1,
+                        price: Number(pharmacieDetail.price),
+                      },
+                    },
+                  })
+                }>
                 COMPRAR
               </ButtonBuy>
             </ButtonGroup>

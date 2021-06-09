@@ -7,12 +7,15 @@ import ButtonAndIcon from '../global/ButtonAndIcon';
 
 export const Container = styled.View`
   width: 100%;
-  padding: 0 10px;
+  padding: 15px 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+ 
+  
+  border-bottom-width: 1px;
+  border-color: ${colors.grayLigth};
+  border-style: solid;
 `;
 
 export const InfoBudgets = styled.View`

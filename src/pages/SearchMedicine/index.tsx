@@ -108,7 +108,7 @@ const SearchMedicine: React.FC = () => {
           />
           <BoxText>
             <NameMedicine>{item.name}</NameMedicine>
-            <CategoryMedicine>Comprimidos</CategoryMedicine>
+            <CategoryMedicine>Medicamentos</CategoryMedicine>
           </BoxText>
         </BoxLeft>
         <BoxRight>

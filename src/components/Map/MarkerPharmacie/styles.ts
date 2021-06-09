@@ -11,7 +11,7 @@ export const Container = styled.View<IContainerProps>`
   border-radius: 4px;
   align-items: center;
   justify-content: center;
-  height: 30;
+  height: 30px;
   padding: 0 5px;
 
   ${(props) =>

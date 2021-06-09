@@ -89,18 +89,6 @@ export const InputSearchDiv = styled.View`
 
 export const AdressFarm = styled.Text``;
 
-export const NoResults = styled.View`
-  flex: 2;
-  justify-content: center;
-  align-items: center;
-  background-color: ${colors.white};
-`;
-export const NoResultsText = styled.Text`
-  margin-top: 20px;
-  font-family: 'Raleway-Medium';
-  font-size: 20px;
-  text-align: center;
-`;
 
 export const BoxLoading = styled.View`
   flex: 2;
@@ -108,3 +96,16 @@ export const BoxLoading = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+
+
+export const NoResults = styled.View`
+ flex:2;
+ justify-content: center;
+ align-items: center;
+`;
+
+export const NoResultsText = styled.Text`
+  font-size: 18px;
+  font-family: 'Raleway-Bold';
+  `;

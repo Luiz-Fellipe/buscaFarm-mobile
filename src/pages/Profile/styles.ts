@@ -1,4 +1,5 @@
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+
 import styled from 'styled-components/native';
 import colors from '../../styles/colors';
 
@@ -61,4 +62,14 @@ export const ProfileOptionIcon = styled(FontAwesomeIcon)``;
 export const ProfileOptionText = styled.Text`
   font-family: 'Raleway-Medium';
   font-size: 20px;
+`;
+
+export const NoImage = styled.View`
+  width: 100px;
+  height: 100px;
+  border-radius: 50;
+  border: 1px solid ${colors.white};
+
+  justify-content: center;
+  align-items: center;
 `;

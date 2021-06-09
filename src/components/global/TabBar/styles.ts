@@ -38,7 +38,7 @@ export const Badge = styled.Text<MenuOptionProps>`
   border-radius: 20px;
   border: 1px solid ${colors.white};
   top: 5px;
-  right: 24px;
+  right: 40px;
 
   color: ${colors.white};
   background-color: ${(props) =>

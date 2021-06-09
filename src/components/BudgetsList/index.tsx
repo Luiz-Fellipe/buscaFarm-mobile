@@ -12,11 +12,11 @@ import {
   TitleDiv,
   TitleMed,
   ValueButton,
-  ButtonArrow,
+  // ButtonArrow,
   DateBudgets,
   Price,
   IconBudgets,
-  IconArrowRight,
+  // IconArrowRight,
 } from './styles';
 
 interface BudgetsListProps {
@@ -39,9 +39,9 @@ const BudgetsList: React.FC<BudgetsListProps> = ({text, price, textDate}) => {
         </TitleDiv>
       </InfoBudgets>
       <ValueButton>
-        <ButtonArrow>
+        {/* <ButtonArrow>
           <IconArrowRight icon={faChevronRight} />
-        </ButtonArrow>
+        </ButtonArrow> */}
       </ValueButton>
     </Container>
   );

@@ -1,6 +1,8 @@
 import {createStackNavigator} from '@react-navigation/stack';
 
 import React from 'react';
+import Cart from '../pages/Cart';
+import CartDetails from '../pages/CartDetails';
 import Map from '../pages/Map';
 import PharmacieDetails from '../pages/PharmacieDetails';
 import Profile from '../pages/Profile';
@@ -30,7 +32,8 @@ const ProfileStackNavigator: React.FC = () => (
 
 const CartStackNavigator: React.FC = () => (
   <Stack.Navigator headerMode="none">
-    <Stack.Screen name="Detalhes" component={PharmacieDetails} />
+    <Stack.Screen name="Home" component={Cart} />
+    <Stack.Screen name="Detalhes" component={CartDetails} />
   </Stack.Navigator>
 );
 
